@@ -4,7 +4,6 @@ import { useState } from 'react';
 import LoadingDots from '@/components/loading-dots';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { unstable_getServerSession } from 'next-auth/next';
 
 export default async function DetailsForm() {
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,6 @@ export default async function DetailsForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: session?.user?.email,
             name: e.currentTarget.name,
             phone: e.currentTarget.phone.value,
             country: e.currentTarget.country.value,
