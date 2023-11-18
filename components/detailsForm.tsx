@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react';
 export default function DetailsForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
+  const data = useSession();
 
   return (
     <form
@@ -23,7 +23,7 @@ export default function DetailsForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: session?.user?.email,
+            email: data?.data?.user?.email,
             phone: e.currentTarget.phone.value,
             country: e.currentTarget.country.value,
             gender: e.currentTarget.gender.value,
