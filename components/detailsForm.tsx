@@ -5,12 +5,10 @@ import LoadingDots from '@/components/loading-dots';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-export default async function DetailsForm() {
+export default function DetailsForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const session = await unstable_getServerSession();
 
-  console.log(session);
   return (
     <form
       onSubmit={(e) => {
