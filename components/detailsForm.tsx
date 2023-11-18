@@ -1,15 +1,17 @@
+'use client';
+
 import { useState } from 'react';
 import LoadingDots from '@/components/loading-dots';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { unstable_getServerSession } from 'next-auth/next';
+import { useSession } from 'next-auth/react';
 
-export default async function DetailsForm() {
+export default function DetailsForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const session = await unstable_getServerSession();
+  const data = useSession();
 
-  console.log(session);
+  console.log(data);
   return (
     <form
       onSubmit={(e) => {
@@ -22,7 +24,7 @@ export default async function DetailsForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: session?.user?.email,
+            email: data?.data?.user?.email,
             phone: e.currentTarget.phone.value,
             country: e.currentTarget.country.value,
             gender: e.currentTarget.gender.value,
