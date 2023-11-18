@@ -35,7 +35,7 @@ export default function DetailsForm() {
           if (res.status === 200) {
             toast.success('Account updated!');
             setTimeout(() => {
-              router.push('/');
+              router.push('/thankyou');
             }, 2000);
           } else {
             const { error } = await res.json();
