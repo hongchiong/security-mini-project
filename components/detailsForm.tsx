@@ -21,7 +21,7 @@ export default function DetailsForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name: e.currentTarget.name,
+            name: e.currentTarget.username.value,
             phone: e.currentTarget.phone.value,
             country: e.currentTarget.country.value,
             gender: e.currentTarget.gender.value,
@@ -42,12 +42,14 @@ export default function DetailsForm() {
       }}
       className='flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16'>
       <div>
-        <label htmlFor='name' className='block text-xs text-gray-600 uppercase'>
+        <label
+          htmlFor='username'
+          className='block text-xs text-gray-600 uppercase'>
           Name
         </label>
         <input
-          id='name'
-          name='name'
+          id='username'
+          name='username'
           type='text'
           placeholder='Andy'
           required
