@@ -4,10 +4,12 @@ import { useState } from 'react';
 import LoadingDots from '@/components/loading-dots';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function DetailsForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <form
@@ -15,19 +17,22 @@ export default function DetailsForm() {
         e.preventDefault();
         setLoading(true);
 
-        fetch('/api/auth/register', {
+        fetch('/api/details', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: e.currentTarget.email.value,
-            password: e.currentTarget.password.value,
+            email: session?.user?.email,
+            phone: e.currentTarget.phone.value,
+            country: e.currentTarget.country.value,
+            gender: e.currentTarget.gender.value,
+            qualification: e.currentTarget.qualification.value,
           }),
         }).then(async (res) => {
           setLoading(false);
           if (res.status === 200) {
-            toast.success('Account created! Redirecting to login...');
+            toast.success('Account updated!');
             setTimeout(() => {
               router.push('/');
             }, 2000);
@@ -47,22 +52,6 @@ export default function DetailsForm() {
           name='name'
           type='text'
           placeholder='Andy'
-          required
-          className='mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm'
-        />
-      </div>
-      <div>
-        <label
-          htmlFor='email'
-          className='block text-xs text-gray-600 uppercase'>
-          Email Address
-        </label>
-        <input
-          id='email'
-          name='email'
-          type='email'
-          placeholder='panic@thedis.co'
-          autoComplete='email'
           required
           className='mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm'
         />
